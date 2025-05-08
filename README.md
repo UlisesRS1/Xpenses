@@ -80,7 +80,7 @@ En caso de que necesites revertir los cambios recientes y volver a un punto dond
   ```
   La linea de interes es la siguiente:
   ```bash
-    commit d34db33f93a74f5f89618bba25f2ac7f0f34370b
+  commit d34db33f93a74f5f89618bba25f2ac7f0f34370b
   ```
 
 ## Comandos de Git Más Usados
