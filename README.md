@@ -12,7 +12,7 @@ Aplicación móvil desarrollada en Android Studio utilizando el lenguaje Java.
 ## Clonar el repositorio
 
 ```bash
-git@github.com:UlisesRS1/Xpenses.git
+git clone git@github.com:UlisesRS1/Xpenses.git
 ```
 ## Contribuir al repositorio
 
