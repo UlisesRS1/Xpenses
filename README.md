@@ -78,7 +78,7 @@ En caso de que necesites revertir los cambios recientes y volver a un punto dond
    ```bash
    git log
   ```
-  La linea de interes es la siguiente:
+  Un ejemplo de commit-hash seria el siguiente:
   ```bash
   commit d34db33f93a74f5f89618bba25f2ac7f0f34370b
   ```
