@@ -1,4 +1,4 @@
-# NombreDelProyecto
+# Xpenses
 
 Aplicación móvil desarrollada en Android Studio utilizando el lenguaje Java.
 
