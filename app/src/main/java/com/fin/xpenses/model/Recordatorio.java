@@ -1,4 +1,4 @@
-package model;
+package com.fin.xpenses.model;
 
 public class Recordatorio {
 }

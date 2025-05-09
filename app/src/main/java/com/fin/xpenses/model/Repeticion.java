@@ -1,0 +1,4 @@
+package com.fin.xpenses.model;
+
+public class Repeticion {
+}

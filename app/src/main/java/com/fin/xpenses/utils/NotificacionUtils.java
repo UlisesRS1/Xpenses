@@ -1,4 +1,4 @@
-package utils;
+package com.fin.xpenses.utils;
 
 public class NotificacionUtils {
 }
