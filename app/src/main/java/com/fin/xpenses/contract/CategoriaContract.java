@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 public class CategoriaContract {
     public static class CategoriasEntry implements BaseColumns {
         /* Nombre de la tabla */
-        public static final String TABLE_NAME = "Categorias";
+        public static final String TABLE_NAME = "categorias";
 
         /* Columnas de la tabla */
         public static final String ID_CATEGORIAS = "id_categorias";
