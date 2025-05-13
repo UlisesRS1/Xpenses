@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.fin.xpenses.contract.CategoriaContract;
 import com.fin.xpenses.contract.MovimientoContract;
+import com.fin.xpenses.contract.TipoCategoriaContract;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "xpenses.db";
@@ -20,6 +21,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             MovimientoContract.MovimientoEntry.FEHCA_REGISTRO + " TEXT NOT NULL, "+
             "FOREIGN KEY (" + MovimientoContract.MovimientoEntry.ID_CATEGORIAS + ") REFERENCES "+
             CategoriaContract.CategoriasEntry.TABLE_NAME +"(" + CategoriaContract.CategoriasEntry.ID_CATEGORIAS + "));";
+    private static final String SQL_CREATE_CATEGORIA = "CREATE TABLE IF NOT EXISTS "+
+            CategoriaContract.CategoriasEntry.TABLE_NAME +" ( "+
+            CategoriaContract.CategoriasEntry.ID_CATEGORIAS + "INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            CategoriaContract.CategoriasEntry.CATEGORIA + "TEXT NOT NULL, "+
+            CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + "INTEGER NOT NULL, "+
+            "FOREIGN KEY (" + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") REFERENCES "+
+            TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME+"("+ TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA+ "));";
+    private static final String SQL_CREATE_TIPOCATEGORIA = "CREATE TABLE IF NOT EXISTS "+
+            TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME +" ( "+
+            TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA +"INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            TipoCategoriaContract.TipoCategoriaEntry.TIPO + "TEXT NOT NULL, "+ ");";
+
+
+
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
