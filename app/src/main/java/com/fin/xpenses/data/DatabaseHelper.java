@@ -18,27 +18,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             MovimientoContract.MovimientoEntry.FECHA + " TEXT NOT NULL, "+
             MovimientoContract.MovimientoEntry.ID_CATEGORIAS + " INTEGER NOT NULL, "+
             MovimientoContract.MovimientoEntry.ES_FUTURO + " INTEGER NOT NULL, "+
-            MovimientoContract.MovimientoEntry.FEHCA_REGISTRO + " TEXT NOT NULL, "+
+            MovimientoContract.MovimientoEntry.FECHA_REGISTRO + " TEXT NOT NULL, "+
             "FOREIGN KEY (" + MovimientoContract.MovimientoEntry.ID_CATEGORIAS + ") REFERENCES "+
             CategoriaContract.CategoriasEntry.TABLE_NAME +"(" + CategoriaContract.CategoriasEntry.ID_CATEGORIAS + "));";
     private static final String SQL_CREATE_CATEGORIA = "CREATE TABLE IF NOT EXISTS "+
             CategoriaContract.CategoriasEntry.TABLE_NAME +" ( "+
-            CategoriaContract.CategoriasEntry.ID_CATEGORIAS + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            CategoriaContract.CategoriasEntry.CATEGORIA + " TEXT NOT NULL, "+
-            CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + " INTEGER NOT NULL, "+
+            CategoriaContract.CategoriasEntry.ID_CATEGORIAS + "INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            CategoriaContract.CategoriasEntry.CATEGORIA + "TEXT NOT NULL, "+
+            CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + "INTEGER NOT NULL, "+
             "FOREIGN KEY (" + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") REFERENCES "+
             TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME+"("+ TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA+ "));";
     private static final String SQL_CREATE_TIPOCATEGORIA = "CREATE TABLE IF NOT EXISTS "+
             TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME +" ( "+
-            TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            TipoCategoriaContract.TipoCategoriaEntry.TIPO + " TEXT NOT NULL)";
+            TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA +"INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            TipoCategoriaContract.TipoCategoriaEntry.TIPO + "TEXT NOT NULL, "+ ");";
 
 
 
-
-    public DatabaseHelper(Context context) {
+    public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {

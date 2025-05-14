@@ -13,6 +13,6 @@ public class RepeticionContract {
         public static final String MONTO = "monto";
         public static final String FECHA_INICIO = "fecha_inicio";
         public static final String FECHA_TERMINO = "fecha_termino";
-        public static final String DIAs_ESPECIFICOS = "dias_especificos";
+        public static final String DIAS_ESPECIFICOS = "dias_especificos";
     }
 }
