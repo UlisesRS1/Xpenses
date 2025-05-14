@@ -23,21 +23,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             CategoriaContract.CategoriasEntry.TABLE_NAME +"(" + CategoriaContract.CategoriasEntry.ID_CATEGORIAS + "));";
     private static final String SQL_CREATE_CATEGORIA = "CREATE TABLE IF NOT EXISTS "+
             CategoriaContract.CategoriasEntry.TABLE_NAME +" ( "+
-            CategoriaContract.CategoriasEntry.ID_CATEGORIAS + "INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            CategoriaContract.CategoriasEntry.CATEGORIA + "TEXT NOT NULL, "+
-            CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + "INTEGER NOT NULL, "+
+            CategoriaContract.CategoriasEntry.ID_CATEGORIAS + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            CategoriaContract.CategoriasEntry.CATEGORIA + " TEXT NOT NULL, "+
+            CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + " INTEGER NOT NULL, "+
             "FOREIGN KEY (" + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") REFERENCES "+
             TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME+"("+ TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA+ "));";
     private static final String SQL_CREATE_TIPOCATEGORIA = "CREATE TABLE IF NOT EXISTS "+
             TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME +" ( "+
-            TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA +"INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            TipoCategoriaContract.TipoCategoriaEntry.TIPO + "TEXT NOT NULL, "+ ");";
+            TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            TipoCategoriaContract.TipoCategoriaEntry.TIPO + " TEXT NOT NULL)";
 
 
 
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
