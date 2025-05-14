@@ -3,7 +3,7 @@ package com.fin.xpenses.model;
 import lombok.Data;
 
 @Data
-public class Moviento {
+public class Movimiento {
     private int idMovimiento;
     private double monto;
     private String fecha;
