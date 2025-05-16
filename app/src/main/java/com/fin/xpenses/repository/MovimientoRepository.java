@@ -1,5 +1,17 @@
 package com.fin.xpenses.repository;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.fin.xpenses.contract.MovimientoContract;
+import com.fin.xpenses.contract.RepeticionContract;
+import com.fin.xpenses.data.DatabaseHelper;
+import com.fin.xpenses.model.Movimiento;
+
+import java.util.Collections;
+import java.util.List;
+
 public class MovimientoRepository implements IMovimientoRepository{
     private DatabaseHelper databaseHelper;
 
@@ -31,6 +43,22 @@ public class MovimientoRepository implements IMovimientoRepository{
 
     @Override
     public boolean eliminarMovimiento(int idMovimiento) {
+        SQLiteDatabase db;
+        String selection;
+
+        try{
+            db = this.databaseHelper.getWritableDatabase();
+
+            selection = MovimientoContract.MovimientoEntry.TABLE_NAME + " WHERE = ? ";
+            String[] selectionArgs = { String.valueOf(idMovimiento) };
+
+            int deleteRows = db.delete(MovimientoContract.MovimientoEntry.TABLE_NAME, selection, selectionArgs);
+            return deleteRows != -1;
+
+        } catch (Exception e){
+            Log.e("Error", e.getMessage());
+        }
+
         return false;
     }
 

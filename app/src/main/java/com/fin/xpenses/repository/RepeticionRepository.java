@@ -37,6 +37,21 @@ public class RepeticionRepository implements IRepeticionRepository{
 
     @Override
     public boolean eliminarRepeticion(int idRepeticion) {
+        SQLiteDatabase db;
+        String selection;
+
+        try{
+            db = this.databaseHelper.getWritableDatabase();
+
+            selection = RepeticionContract.RepeticionesEntry.TABLE_NAME + " WHERE = ? ";
+            String[] selectionArgs = { String.valueOf(idRepeticion) };
+
+            int deleteRows = db.delete(RepeticionContract.RepeticionesEntry.TABLE_NAME, selection, selectionArgs);
+            return deleteRows != -1;
+
+        } catch (Exception e){
+            Log.e("Error", e.getMessage());
+        }
         return false;
     }
 
