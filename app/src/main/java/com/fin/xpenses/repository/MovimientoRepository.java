@@ -1,16 +1,5 @@
 package com.fin.xpenses.repository;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import com.fin.xpenses.contract.MovimientoContract;
-import com.fin.xpenses.data.DatabaseHelper;
-import com.fin.xpenses.model.Movimiento;
-
-import java.util.Collections;
-import java.util.List;
-
 public class MovimientoRepository implements IMovimientoRepository{
     private DatabaseHelper databaseHelper;
 
