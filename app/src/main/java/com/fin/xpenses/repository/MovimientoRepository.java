@@ -43,6 +43,22 @@ public class MovimientoRepository implements IMovimientoRepository{
 
     @Override
     public boolean eliminarMovimiento(int idMovimiento) {
+        SQLiteDatabase db;
+        ContentValues values;
+        String selection;
+
+        try{
+            db = this.databaseHelper.getWritableDatabase();
+
+            selection = MovimientoContract.MovimientoEntry.TABLE_NAME + " WHERE = ? ";
+            String[] selectionArgs = { String.valueOf(idMovimiento) };
+
+            int deleteRows = db.delete(MovimientoContract.MovimientoEntry.TABLE_NAME, selection, selectionArgs);
+            return deleteRows != -1;
+
+        } catch (Exception e){
+            Log.e("Error", e.getMessage());
+        }
         return false;
     }
 
