@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TIPOCATEGORIA = "CREATE TABLE IF NOT EXISTS "+
             TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME +" ( "+
             TipoCategoriaContract.TipoCategoriaEntry.ID_TIPO_CATEGORIA +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            TipoCategoriaContract.TipoCategoriaEntry.TIPO + " TEXT NOT NULL, "+ ");";
+            TipoCategoriaContract.TipoCategoriaEntry.TIPO + " TEXT NOT NULL"+ ");";
     private static final String SQL_CREATE_RECORDATORIO = "CREATE TABLE IF NOT EXISTS "+
             RecordatorioContract.RecordatorioEntry.TABLE_NAME +" ( "+
             RecordatorioContract.RecordatorioEntry.ID_RECORDATORIO +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
