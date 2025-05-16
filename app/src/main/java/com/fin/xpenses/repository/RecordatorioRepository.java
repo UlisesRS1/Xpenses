@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.fin.xpenses.contract.MovimientoContract;
 import com.fin.xpenses.contract.RecordatorioContract;
 import com.fin.xpenses.data.DatabaseHelper;
 import com.fin.xpenses.model.Recordatorio;
@@ -38,6 +39,21 @@ public class RecordatorioRepository implements IRecordatorioRepository{
 
     @Override
     public boolean eliminarRecordatorio(int idRecordatorio) {
+        SQLiteDatabase db;
+        String selection;
+
+        try{
+            db = this.databaseHelper.getWritableDatabase();
+
+            selection = RecordatorioContract.RecordatorioEntry.TABLE_NAME + " WHERE = ? ";
+            String[] selectionArgs = { String.valueOf(idRecordatorio) };
+
+            int deleteRows = db.delete(RecordatorioContract.RecordatorioEntry.TABLE_NAME, selection, selectionArgs);
+            return deleteRows != -1;
+
+        } catch (Exception e){
+            Log.e("Error", e.getMessage());
+        }
         return false;
     }
 
