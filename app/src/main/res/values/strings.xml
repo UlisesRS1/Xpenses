@@ -10,4 +10,8 @@
     <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Graficas</string>
     <string name="menu_slideshow">Acerca De</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="test">Texto de prueba</string>
+
 </resources>

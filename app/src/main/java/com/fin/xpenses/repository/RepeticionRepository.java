@@ -1,5 +1,9 @@
 package com.fin.xpenses.repository;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.fin.xpenses.contract.RepeticionContract;
 import com.fin.xpenses.data.DatabaseHelper;
 import com.fin.xpenses.model.Repeticion;
