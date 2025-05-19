@@ -29,9 +29,9 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.fin.xpenses.ui.slideshow.SlideshowFragment"
+        android:name="com.fin.xpenses.ui.acercade.AcercaDeFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_acercade" />
     <fragment
         android:id="@+id/fragment_test"
         android:name="com.fin.xpenses.test"
