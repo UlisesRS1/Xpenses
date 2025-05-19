@@ -32,20 +32,20 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/btnGrafica"
+        android:id="@+id/btnGraficaIngresoGasto"
         android:layout_width="124dp"
         android:layout_height="57dp"
-        android:text="Button"
+        android:text="Ingreso/Gasto"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4" />
 
     <Button
         android:id="@+id/btnGraficaGasto"
-        android:layout_width="143dp"
+        android:layout_width="147dp"
         android:layout_height="57dp"
         android:text="Gastos"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/btnGrafica"
+        app:layout_constraintEnd_toStartOf="@+id/btnGraficaIngresoGasto"
         app:layout_constraintStart_toEndOf="@+id/btnGraficaIngresos" />
 
     <Button
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="137dp" />
+        app:layout_constraintGuide_begin="129dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -76,4 +76,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="125dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="500dp" />
+
+    <ListView
+        android:id="@+id/lvInicio"
+        android:layout_width="410dp"
+        android:layout_height="171dp"
+        app:layout_constraintBottom_toTopOf="@+id/materialToolbar3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="675dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
