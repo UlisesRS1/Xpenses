@@ -58,7 +58,26 @@ public class RecordatorioRepository implements IRecordatorioRepository{
     }
 
     @Override
-    public boolean actualizarRecordatorio(Recordatorio recordatorio) {
+    public boolean actualizarRecordatorio(int idRecordatorio, Recordatorio recordatorio) {
+        SQLiteDatabase db;
+        ContentValues values;
+
+        try {
+            db = this.databaseHelper.getWritableDatabase();
+            values = new ContentValues();
+            values.put(RecordatorioContract.RecordatorioEntry.ID_MOVIMIENTO, recordatorio.getIdMovimiento().getIdMovimiento());
+            values.put(RecordatorioContract.RecordatorioEntry.MENSAJE, recordatorio.getMensaje());
+            values.put(RecordatorioContract.RecordatorioEntry.FECHA_ALARMA, recordatorio.getFechaAlarma());
+
+            int update = db.update(RecordatorioContract.RecordatorioEntry.TABLE_NAME,
+                    values,
+                    RecordatorioContract.RecordatorioEntry.ID_RECORDATORIO +
+                            " = ?", new String[]{String.valueOf(idRecordatorio)});
+            return update != -1;
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+
         return false;
     }
 
