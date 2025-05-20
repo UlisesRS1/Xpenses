@@ -63,7 +63,27 @@ public class MovimientoRepository implements IMovimientoRepository{
     }
 
     @Override
-    public boolean actualizarMovimiento(Movimiento movimiento) {
+    public boolean actualizarMovimiento(int idMovimiento, Movimiento movimiento) {
+        SQLiteDatabase db;
+        ContentValues values;
+        try {
+            db = this.databaseHelper.getWritableDatabase();
+            values = new ContentValues();
+            values.put(MovimientoContract.MovimientoEntry.MONTO, movimiento.getMonto());
+            values.put(MovimientoContract.MovimientoEntry.FECHA, movimiento.getFecha());
+            values.put(MovimientoContract.MovimientoEntry.ID_CATEGORIAS, movimiento.getIdCategoria().getIdCategoria());
+            values.put(MovimientoContract.MovimientoEntry.ES_FUTURO, movimiento.isEsFuturo());
+            values.put(MovimientoContract.MovimientoEntry.FECHA_REGISTRO, movimiento.getFechaRegistro());
+
+            int update = db.update(MovimientoContract.MovimientoEntry.TABLE_NAME,
+                    values,
+                    MovimientoContract.MovimientoEntry.ID_MOVIMIENTO +
+                            " = ?", new String[]{String.valueOf(idMovimiento)});
+            return update != -1;
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+
         return false;
     }
 

@@ -60,7 +60,7 @@ public class RepeticionRepository implements IRepeticionRepository{
     }
 
     @Override
-    public boolean actualizarRepeticion(Repeticion repeticion) {
+    public boolean actualizarRepeticion(int idRepeticion, Repeticion repeticion) {
         SQLiteDatabase db;
         ContentValues values;
 
@@ -71,12 +71,14 @@ public class RepeticionRepository implements IRepeticionRepository{
             values.put(RepeticionContract.RepeticionesEntry.ID_CATEGORIA, repeticion.getIdCategoria().getIdCategoria());
             values.put(RepeticionContract.RepeticionesEntry.MONTO, repeticion.getMonto());
             values.put(RepeticionContract.RepeticionesEntry.FECHA_INICIO, repeticion.getFechaInicia());
+            values.put(RepeticionContract.RepeticionesEntry.FRECUENCIA, repeticion.getFrecuencia());
             values.put(RepeticionContract.RepeticionesEntry.FECHA_TERMINO, repeticion.getFechaTermina());
             values.put(RepeticionContract.RepeticionesEntry.DIAS_ESPECIFICOS, repeticion.getDiasEspecificos());
-
-            long update = db.update(RepeticionContract.RepeticionesEntry.TABLE_NAME, values, RepeticionContract.RepeticionesEntry.ID_REPETICION + " = ?", new String[]{String.valueOf(repeticion.getIdRepeticion())});
+            int update = db.update(RepeticionContract.RepeticionesEntry.TABLE_NAME,
+                    values,
+                    RepeticionContract.RepeticionesEntry.ID_REPETICION +
+                            " = ?", new String[]{String.valueOf(idRepeticion)});
             return update != -1;
-
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
         }
