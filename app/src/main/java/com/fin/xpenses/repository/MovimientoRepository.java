@@ -1,14 +1,17 @@
 package com.fin.xpenses.repository;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.fin.xpenses.contract.MovimientoContract;
 import com.fin.xpenses.contract.RepeticionContract;
 import com.fin.xpenses.data.DatabaseHelper;
+import com.fin.xpenses.model.Categoria;
 import com.fin.xpenses.model.Movimiento;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +30,6 @@ public class MovimientoRepository implements IMovimientoRepository{
         try{
             db = databaseHelper.getWritableDatabase();
             values = new ContentValues();
-            values.put(MovimientoContract.MovimientoEntry.ID_MOVIMIENTO, movimiento.getIdMovimiento());
             values.put(MovimientoContract.MovimientoEntry.MONTO, movimiento.getMonto());
             values.put(MovimientoContract.MovimientoEntry.FECHA, movimiento.getFecha());
             values.put(MovimientoContract.MovimientoEntry.ID_CATEGORIAS, String.valueOf(movimiento.getIdCategoria()));
@@ -94,6 +96,39 @@ public class MovimientoRepository implements IMovimientoRepository{
 
     @Override
     public List<Movimiento> obtenerTodosLosMovimientos() {
+        SQLiteDatabase db;
+        Cursor cursor;
+        String sql;
+        List<Movimiento> movimientos;
+
+        try {
+            db = this.databaseHelper.getReadableDatabase();
+            sql = "SELECT * FROM " + MovimientoContract.MovimientoEntry.TABLE_NAME;
+            cursor = db.rawQuery(sql, null);
+            movimientos = new ArrayList<>();
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Movimiento movimiento = new Movimiento();
+                    Categoria categoria = new Categoria();
+                    movimiento.setIdMovimiento(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_MOVIMIENTO)));
+                    movimiento.setMonto(cursor.getDouble(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.MONTO)));
+                    movimiento.setFecha(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA)));
+                    movimiento.setEsFuturo(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ES_FUTURO)) == 1);
+                    movimiento.setFechaRegistro(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA_REGISTRO)));
+                    categoria.setIdCategoria(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_CATEGORIAS)));
+                    movimiento.setIdCategoria(categoria);
+
+                    Log.e("Movimiento", movimiento.toString());
+                    boolean add = movimientos.add(movimiento);
+                    Log.e("Add", String.valueOf(add));
+                } while (cursor.moveToNext());
+            }
+
+            return movimientos;
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
         return Collections.emptyList();
     }
 }
