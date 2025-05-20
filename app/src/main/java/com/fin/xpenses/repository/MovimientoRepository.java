@@ -30,7 +30,7 @@ public class MovimientoRepository implements IMovimientoRepository{
             values.put(MovimientoContract.MovimientoEntry.ID_MOVIMIENTO, movimiento.getIdMovimiento());
             values.put(MovimientoContract.MovimientoEntry.MONTO, movimiento.getMonto());
             values.put(MovimientoContract.MovimientoEntry.FECHA, movimiento.getFecha());
-            values.put(MovimientoContract.MovimientoEntry.ID_CATEGORIAS, movimiento.getIdCategoria().getIdCategoria());
+            values.put(MovimientoContract.MovimientoEntry.ID_CATEGORIAS, String.valueOf(movimiento.getIdCategoria()));
             values.put(MovimientoContract.MovimientoEntry.ES_FUTURO, movimiento.isEsFuturo());
             values.put(MovimientoContract.MovimientoEntry.FECHA_REGISTRO, movimiento.getFechaRegistro());
             long insert = db.insert(MovimientoContract.MovimientoEntry.TABLE_NAME, null, values);
