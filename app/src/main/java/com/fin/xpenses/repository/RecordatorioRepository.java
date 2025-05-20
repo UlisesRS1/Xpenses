@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.fin.xpenses.contract.MovimientoContract;
 import com.fin.xpenses.contract.RecordatorioContract;
 import com.fin.xpenses.data.DatabaseHelper;
 import com.fin.xpenses.model.Recordatorio;
