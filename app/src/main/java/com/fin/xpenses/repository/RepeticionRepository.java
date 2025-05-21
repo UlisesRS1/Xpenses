@@ -50,7 +50,7 @@ public class RepeticionRepository implements IRepeticionRepository{
         try{
             db = this.databaseHelper.getWritableDatabase();
 
-            selection = RepeticionContract.RepeticionesEntry.TABLE_NAME + " WHERE = ? ";
+            selection = RepeticionContract.RepeticionesEntry.ID_REPETICION + " = ?";
             String[] selectionArgs = { String.valueOf(idRepeticion) };
 
             int deleteRows = db.delete(RepeticionContract.RepeticionesEntry.TABLE_NAME, selection, selectionArgs);
@@ -91,6 +91,7 @@ public class RepeticionRepository implements IRepeticionRepository{
 
     @Override
     public Repeticion obtenerRepeticion(int idRepeticion) {
+
         return null;
     }
 
