@@ -49,4 +49,6 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     compileOnly ("org.projectlombok:lombok:1.18.38")
     annotationProcessor ("org.projectlombok:lombok:1.18.38")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }
