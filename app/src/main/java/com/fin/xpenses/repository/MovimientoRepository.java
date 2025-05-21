@@ -51,7 +51,7 @@ public class MovimientoRepository implements IMovimientoRepository{
         try{
             db = this.databaseHelper.getWritableDatabase();
 
-            selection = MovimientoContract.MovimientoEntry.TABLE_NAME + " WHERE = ? ";
+            selection = MovimientoContract.MovimientoEntry.ID_MOVIMIENTO + " = ? ";
             String[] selectionArgs = { String.valueOf(idMovimiento) };
 
             int deleteRows = db.delete(MovimientoContract.MovimientoEntry.TABLE_NAME, selection, selectionArgs);

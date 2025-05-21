@@ -47,7 +47,7 @@ public class RecordatorioRepository implements IRecordatorioRepository{
         try{
             db = this.databaseHelper.getWritableDatabase();
 
-            selection = RecordatorioContract.RecordatorioEntry.TABLE_NAME + " WHERE = ? ";
+            selection = RecordatorioContract.RecordatorioEntry.ID_RECORDATORIO + " = ?";
             String[] selectionArgs = { String.valueOf(idRecordatorio) };
 
             int deleteRows = db.delete(RecordatorioContract.RecordatorioEntry.TABLE_NAME, selection, selectionArgs);
