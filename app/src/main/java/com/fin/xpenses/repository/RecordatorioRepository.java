@@ -1,13 +1,16 @@
 package com.fin.xpenses.repository;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.fin.xpenses.contract.RecordatorioContract;
 import com.fin.xpenses.data.DatabaseHelper;
+import com.fin.xpenses.model.Movimiento;
 import com.fin.xpenses.model.Recordatorio;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,6 +90,37 @@ public class RecordatorioRepository implements IRecordatorioRepository{
 
     @Override
     public List<Recordatorio> obtenerTodosLosRecordatorios() {
+        SQLiteDatabase db;
+        Cursor cursor;
+        String sql;
+        List<Recordatorio> recordatorios;
+
+        try {
+            db = this.databaseHelper.getReadableDatabase();
+            sql = "SELECT * FROM " + RecordatorioContract.RecordatorioEntry.TABLE_NAME;
+            cursor = db.rawQuery(sql, null);
+            recordatorios = new ArrayList<>();
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Recordatorio recordatorio = new Recordatorio();
+                    Movimiento movimiento = new Movimiento();
+                    recordatorio.setIdRecordatorio(cursor.getInt(cursor.getColumnIndexOrThrow(RecordatorioContract.RecordatorioEntry.ID_RECORDATORIO)));
+                    movimiento.setIdMovimiento(cursor.getInt(cursor.getColumnIndexOrThrow(RecordatorioContract.RecordatorioEntry.ID_MOVIMIENTO)));
+
+                    recordatorio.setIdMovimiento(movimiento);
+                    recordatorio.setMensaje(cursor.getString(cursor.getColumnIndexOrThrow(RecordatorioContract.RecordatorioEntry.MENSAJE)));
+
+                    recordatorio.setFechaAlarma(cursor.getString(cursor.getColumnIndexOrThrow(RecordatorioContract.RecordatorioEntry.FECHA_ALARMA)));
+
+                    recordatorios.add(recordatorio);
+                } while (cursor.moveToNext());
+            }
+
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+
         return Collections.emptyList();
     }
 }
