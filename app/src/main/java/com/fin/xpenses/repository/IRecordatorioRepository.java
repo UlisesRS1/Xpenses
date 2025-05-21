@@ -8,7 +8,7 @@ import java.util.List;
 public interface IRecordatorioRepository {
     boolean agregarRecordatorio(Recordatorio recordatorio);
     boolean eliminarRecordatorio(int idRecordatorio);
-    boolean actualizarRecordatorio(Recordatorio recordatorio);
+    boolean actualizarRecordatorio(int idRecordatorio, Recordatorio recordatorio);
     Recordatorio obtenerRecordatorio(int idRecordatorio);
     List<Recordatorio> obtenerTodosLosRecordatorios();
 }
