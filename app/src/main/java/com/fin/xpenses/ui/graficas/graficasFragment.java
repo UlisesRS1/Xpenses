@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+
+import com.fin.xpenses.databinding.FragmentGraficasBinding;
 import com.fin.xpenses.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
