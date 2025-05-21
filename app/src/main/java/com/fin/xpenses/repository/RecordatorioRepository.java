@@ -85,6 +85,34 @@ public class RecordatorioRepository implements IRecordatorioRepository{
 
     @Override
     public Recordatorio obtenerRecordatorio(int idRecordatorio) {
+        SQLiteDatabase db;
+        Cursor cursor;
+        String sql;
+        Recordatorio recordatorio;
+
+        try {
+            db = this.databaseHelper.getReadableDatabase();
+            sql = "SELECT * FROM " + RecordatorioContract.RecordatorioEntry.TABLE_NAME + " WHERE " + RecordatorioContract.RecordatorioEntry.ID_RECORDATORIO + " = ?";
+            cursor = db.rawQuery(sql, new String[]{String.valueOf(idRecordatorio)});
+
+            if (cursor.moveToFirst()) {
+                recordatorio = new Recordatorio();
+                Movimiento movimiento = new Movimiento();
+                movimiento.setIdMovimiento(cursor.getInt(cursor.getColumnIndexOrThrow(RecordatorioContract.RecordatorioEntry.ID_MOVIMIENTO)));
+                recordatorio.setIdMovimiento(movimiento);
+                recordatorio.setMensaje(cursor.getString(cursor.getColumnIndexOrThrow(RecordatorioContract.RecordatorioEntry.MENSAJE)));
+                recordatorio.setFechaAlarma(cursor.getString(cursor.getColumnIndexOrThrow(RecordatorioContract.RecordatorioEntry.FECHA_ALARMA)));
+
+                cursor.close();
+                db.close();
+
+                return recordatorio;
+            }
+
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+
         return null;
     }
 
