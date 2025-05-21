@@ -91,6 +91,35 @@ public class MovimientoRepository implements IMovimientoRepository{
 
     @Override
     public Movimiento obtenerMovimiento(int idMovimiento) {
+        SQLiteDatabase db;
+        Cursor cursor;
+        String sql;
+        Movimiento movimiento;
+
+        try {
+            db = this.databaseHelper.getReadableDatabase();
+            sql = "SELECT * FROM " + MovimientoContract.MovimientoEntry.TABLE_NAME + " WHERE " + MovimientoContract.MovimientoEntry.ID_MOVIMIENTO + " = ?";
+            cursor = db.rawQuery(sql, new String[]{String.valueOf(idMovimiento)});
+
+            if (cursor.moveToFirst()) {
+                movimiento = new Movimiento();
+                Categoria categoria = new Categoria();
+                movimiento.setIdMovimiento(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_MOVIMIENTO)));
+                movimiento.setMonto(cursor.getDouble(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.MONTO)));
+                movimiento.setFecha(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA)));
+                movimiento.setEsFuturo(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ES_FUTURO)) == 1);
+                movimiento.setFechaRegistro(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA_REGISTRO)));
+                categoria.setIdCategoria(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_CATEGORIAS)));
+                movimiento.setIdCategoria(categoria);
+
+                cursor.close();
+                db.close();
+
+                return movimiento;
+            }
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
 
         return null;
     }

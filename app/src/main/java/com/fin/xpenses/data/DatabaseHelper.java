@@ -1,8 +1,10 @@
 package com.fin.xpenses.data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.fin.xpenses.contract.CategoriaContract;
 import com.fin.xpenses.contract.MovimientoContract;
@@ -53,8 +55,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (" + RepeticionContract.RepeticionesEntry.ID_CATEGORIA + ") REFERENCES "+
             CategoriaContract.CategoriasEntry.TABLE_NAME+"("+ CategoriaContract.CategoriasEntry.ID_CATEGORIAS+ "));";
 
-
-
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -67,6 +67,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_MOVIMIENTOS);
         db.execSQL(SQL_CREATE_RECORDATORIO);
         db.execSQL(SQL_CREATE_REPETICIONES);
+
+        insertData(db);
+    }
+
+    public void insertData(SQLiteDatabase db){
+        String sqlInsertTipoCategoriaGasto = "Insert into " + TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME + " (" + TipoCategoriaContract.TipoCategoriaEntry.TIPO +") values ('Gasto')";
+        String sqlInsertTipoCategoriaIngreso = "Insert into " + TipoCategoriaContract.TipoCategoriaEntry.TABLE_NAME + " (" + TipoCategoriaContract.TipoCategoriaEntry.TIPO +") values ('Ingreso')";
+
+        String sqlInsertCategoriaAlimentacion = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Alimentacion', 1)";
+        String sqlInsertCategoriaServicios = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Servicios', 1)";
+        String sqlInsertCategoriaEntretenimiento = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Entretenimiento', 1)";
+        String sqlInsertCategoriaSaludYBienestar = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Salud y bienestar', 1)";
+        String sqlInsertCategoriaSuscripcones = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Suscripciones', 1)";
+
+        String sqlInsertCategoriaBeca = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Beca', 2)";
+        String sqlInsertCategoriaRegalo = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Regalo', 2)";
+        String sqlInsertCategoriaPrestamo = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Prestamo', 2)";
+        String sqlInsertCategoriaNegocio = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Negocio', 2)";
+
+
+        String sqlInserCategoriaOtrosIngresos = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Otros', 1)";
+        String sqlInsertCategriaOtrosGastos = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Otros', 2)";
+
+        db.execSQL(sqlInsertTipoCategoriaGasto);
+        db.execSQL(sqlInsertTipoCategoriaIngreso);
+
+        db.execSQL(sqlInsertCategoriaAlimentacion);
+        db.execSQL(sqlInsertCategoriaServicios);
+        db.execSQL(sqlInsertCategoriaEntretenimiento);
+        db.execSQL(sqlInsertCategoriaSaludYBienestar);
+        db.execSQL(sqlInsertCategoriaSuscripcones);
+
+        db.execSQL(sqlInsertCategoriaBeca);
+        db.execSQL(sqlInsertCategoriaRegalo);
+        db.execSQL(sqlInsertCategoriaPrestamo);
+        db.execSQL(sqlInsertCategoriaNegocio);
+
+        db.execSQL(sqlInserCategoriaOtrosIngresos);
+        db.execSQL(sqlInsertCategriaOtrosGastos);
     }
 
     @Override
