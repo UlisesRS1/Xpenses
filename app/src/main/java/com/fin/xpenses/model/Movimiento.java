@@ -6,6 +6,7 @@ import lombok.Data;
 public class Movimiento {
     private int idMovimiento;
     private double monto;
+    private String descripcion;
     private String fecha;
     private Categoria idCategoria;
     private boolean esFuturo;

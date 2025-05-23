@@ -1,10 +1,12 @@
 package com.fin.xpenses.ui.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -18,63 +20,66 @@ import com.fin.xpenses.repository.MovimientoRepository;
 import java.util.List;
 
 public class HomeAdaptador extends BaseAdapter {
-    private static LayoutInflater inflater = null;
+    private static LayoutInflater inflater;
     private Context contexto;
     private List<Movimiento> movimientos;
 
     public HomeAdaptador(@NonNull Context contexto, List<Movimiento> movimientos) {
         this.contexto = contexto;
-        inflater = LayoutInflater.from(contexto);
+        HomeAdaptador.inflater = (LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.movimientos = movimientos;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ListaInicioBinding listaInicioBinding;
-        ViewHolder holder;
+        TextView txtDescripcion;
+        TextView txtCategoria;
+        TextView txtCifra;
+
+        ViewHolder viewHolder;
 
         if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(contexto);
-            listaInicioBinding = ListaInicioBinding.inflate(inflater, parent, false);
-            holder = new ViewHolder(listaInicioBinding);
-            convertView = listaInicioBinding.getRoot();
-            convertView.setTag(holder);
+            convertView = inflater.inflate(R.layout.lista_inicio, parent, false);
+            viewHolder = new ViewHolder();
+
+            viewHolder.binding = ListaInicioBinding.bind(convertView);
+            viewHolder.txtDescripcion = viewHolder.binding.txtDescripcion;
+            viewHolder.txtCategoria = viewHolder.binding.txtCategoria;
+            viewHolder.txtCifra = viewHolder.binding.txtCifra;
+
+            convertView.setTag(viewHolder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
-            listaInicioBinding = holder.binding;
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         Movimiento movimiento = movimientos.get(position);
-        listaInicioBinding.txtCategoria.setText(movimiento.getIdMovimiento());
-        listaInicioBinding.txtDescripcion.setText("Descripcion (Test de descripcion)");
-        listaInicioBinding.txtCifra.setText(String.valueOf(movimiento.getMonto()));
+
+        viewHolder.txtDescripcion.setText(movimiento.getDescripcion());
+        viewHolder.txtCategoria.setText(movimiento.getIdCategoria().getCategoria());
+        viewHolder.txtCifra.setText(String.valueOf(movimiento.getMonto()));
 
         return convertView;
     }
 
     static class ViewHolder {
         ListaInicioBinding binding;
-
-
-        ViewHolder(ListaInicioBinding binding) {
-            this.binding = binding;
-        }
+        TextView txtDescripcion;
+        TextView txtCategoria;
+        TextView txtCifra;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return movimientos != null ? movimientos.size() : 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return movimientos.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
-
-
 }

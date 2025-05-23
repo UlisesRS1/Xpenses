@@ -50,7 +50,7 @@ public class graficasFragment extends Fragment {
                 lista.add(tipoStr + " - " + m.getMonto() + " - " + m.getFecha());
             }
 
-            graficasBinding.lvInicio.setAdapter(new ArrayAdapter<>(
+            graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
                     requireContext(), android.R.layout.simple_list_item_1, lista
             ));
 
@@ -66,7 +66,7 @@ public class graficasFragment extends Fragment {
                 }
             }
 
-            graficasBinding.lvInicio.setAdapter(new ArrayAdapter<>(
+            graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
                     requireContext(), android.R.layout.simple_list_item_1, lista
             ));
 
@@ -81,7 +81,7 @@ public class graficasFragment extends Fragment {
                 }
             }
 
-            graficasBinding.lvInicio.setAdapter(new ArrayAdapter<>(
+            graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
                     requireContext(), android.R.layout.simple_list_item_1, lista
             ));
 

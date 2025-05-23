@@ -145,6 +145,7 @@ public class MovimientoRepository implements IMovimientoRepository{
                     movimiento.setMonto(cursor.getDouble(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.MONTO)));
                     movimiento.setFecha(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA)));
                     movimiento.setEsFuturo(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ES_FUTURO)) == 1);
+                    movimiento.setDescripcion(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.DESCRIPCION)));
                     movimiento.setFechaRegistro(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA_REGISTRO)));
                     categoria.setIdCategoria(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_CATEGORIAS)));
                     movimiento.setIdCategoria(categoria);

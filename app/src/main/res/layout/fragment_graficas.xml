@@ -94,7 +94,7 @@
         tools:layout_editor_absoluteX="16dp" />
 
     <ListView
-        android:id="@+id/lvInicio"
+        android:id="@+id/lvInicioF"
         android:layout_width="410dp"
         android:layout_height="171dp"
         app:layout_constraintBottom_toTopOf="@+id/materialToolbar3"

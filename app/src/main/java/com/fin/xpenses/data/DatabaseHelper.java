@@ -14,7 +14,7 @@ import com.fin.xpenses.contract.TipoCategoriaContract;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "xpenses.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String SQL_CREATE_MOVIMIENTOS = "CREATE TABLE IF NOT EXISTS "+
             MovimientoContract.MovimientoEntry.TABLE_NAME +" ( "+
             MovimientoContract.MovimientoEntry.ID_MOVIMIENTO + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
@@ -110,6 +110,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        if (oldVersion < 2) {
+            // Supongamos que agregamos una columna "edad" a la tabla "usuarios"
+            String sql = "ALTER TABLE " + MovimientoContract.MovimientoEntry.TABLE_NAME + " ADD COLUMN "+ MovimientoContract.MovimientoEntry.DESCRIPCION + " TEXT DEFAULT 'test'";
+            db.execSQL(sql);
+        }
     }
 }
