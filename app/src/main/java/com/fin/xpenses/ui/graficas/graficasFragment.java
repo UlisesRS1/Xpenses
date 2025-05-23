@@ -2,6 +2,7 @@ package com.fin.xpenses.ui.graficas;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.fin.xpenses.databinding.FragmentGraficasBinding;
 import com.fin.xpenses.R;
 import com.fin.xpenses.data.DatabaseHelper;
 import com.fin.xpenses.databinding.FragmentGraficasBinding;
+import com.fin.xpenses.model.Categoria;
 import com.fin.xpenses.model.Movimiento;
 import com.fin.xpenses.repository.IMovimientoRepository;
 import com.fin.xpenses.repository.MovimientoRepository;
@@ -24,7 +26,9 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class graficasFragment extends Fragment {
 
@@ -33,119 +37,189 @@ public class graficasFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        List<Movimiento> movimientos;
+        List<Movimiento> lista;
 
         DatabaseHelper db = new DatabaseHelper(this.getContext());
         IMovimientoRepository movimientoRepository = new MovimientoRepository(db);
 
-        movimientos = movimientoRepository.obtenerTodosLosMovimientos();
+        lista = movimientoRepository.obtenerTodosLosMovimientos();
 
         graficasBinding = FragmentGraficasBinding.inflate(inflater, container, false);
 
         graficasBinding.btnGraficaIngresoGasto.setOnClickListener(v -> {
-            List<String> lista = new ArrayList<>();
-            for (Movimiento m : movimientos) {
-                int tipo = m.getIdCategoria().getIdCategoria();
-                String tipoStr = (tipo == 1) ? "Gasto" : (tipo == 2) ? "Ingreso" : "Otro";
-                lista.add(tipoStr + " - " + m.getMonto() + " - " + m.getFecha());
-            }
 
-            graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
-                    requireContext(), android.R.layout.simple_list_item_1, lista
-            ));
 
-            graficar(lista, "IngresoGasto");
+            graficarTodo(lista);
         });
 
 
         graficasBinding.btnGraficaGasto.setOnClickListener(v -> {
-            List<String> lista = new ArrayList<>();
-            for (Movimiento m : movimientos) {
-                if (m.getIdCategoria().getIdCategoria() == 1) {
-                    lista.add(m.getIdCategoria() + " - " + m.getMonto() + " - " + m.getFecha());
-                }
-            }
 
-            graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
+            /*graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
                     requireContext(), android.R.layout.simple_list_item_1, lista
-            ));
+            ));*/
 
-            graficar(lista, "Gasto");
+            graficarGastos(lista);
         });
 
         graficasBinding.btnGraficaIngresos.setOnClickListener(v -> {
-            List<String> lista = new ArrayList<>();
-            for (Movimiento m : movimientos) {
-                if (m.getIdCategoria().getIdCategoria() == 2) {
-                    lista.add(m.getIdCategoria() + " - " + m.getMonto() + " - " + m.getFecha());
-                }
-            }
 
-            graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
-                    requireContext(), android.R.layout.simple_list_item_1, lista
-            ));
 
-            graficar(lista, "Ingreso");
+            graficarIngresos(lista);
         });
 
         return graficasBinding.getRoot();
     }
 
-    public void graficar(List<String> lista, String tipo) {
+    public void graficarGastos(List<Movimiento> lista) {
         PieChart pieChart = graficasBinding.graficaPastel;
 
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        float totalGastos = 0f;
-        float totalIngresos = 0f;
+        // Mapa para acumular montos por categoría
+        Map<String, Float> sumaPorCategoria = new HashMap<>();
 
-        for (String item : lista) {
-            String[] partes = item.split(" - ");
-            if (partes.length >= 2) {
-                try {
-                    float monto = Float.parseFloat(partes[1]);
-                    if (partes[0].equalsIgnoreCase("Gasto")) {
-                        totalGastos += monto;
-                    } else if (partes[0].equalsIgnoreCase("Ingreso")) {
-                        totalIngresos += monto;
-                    }
-                } catch (NumberFormatException e) {
-                    // ignorar
+        // Inicializar categorías conocidas
+        String[] categorias = {"Alimentacion", "Servicios", "Entretenimiento", "Salud y bienestar", "Suscripciones", "Otros"};
+        for (String cat : categorias) {
+            sumaPorCategoria.put(cat, 0f);
+        }
+
+        // Recorrer la lista de movimientos
+        for (Movimiento mov : lista) {
+            Categoria cat = mov.getIdCategoria();
+
+            // Validar que sea gasto (idTipoCategoria == 1)
+            if (cat != null && cat.getIdTipoCategoria() != null && cat.getIdTipoCategoria().getIdTipoCategoria() == 1) {
+                String nombreCategoria = cat.getCategoria();
+
+                // Si la categoría está en las conocidas, se suma, si no, va a "Otros"
+                if (sumaPorCategoria.containsKey(nombreCategoria)) {
+                    float montoActual = sumaPorCategoria.get(nombreCategoria);
+                    sumaPorCategoria.put(nombreCategoria, montoActual + (float) mov.getMonto());
+                } else {
+                    float montoActual = sumaPorCategoria.get("Otros");
+                    sumaPorCategoria.put("Otros", montoActual + (float) mov.getMonto());
                 }
             }
         }
 
-        String titulo = "";
-
-        switch (tipo) {
-            case "IngresoGasto":
-                if (totalGastos > 0) entries.add(new PieEntry(totalGastos, "Gastos"));
-                if (totalIngresos > 0) entries.add(new PieEntry(totalIngresos, "Ingresos"));
-                titulo = "Ingresos vs Gastos";
-                break;
-
-            case "Gasto":
-                if (totalGastos > 0) entries.add(new PieEntry(totalGastos, "Gastos"));
-                titulo = "Gastos";
-                break;
-
-            case "Ingreso":
-                if (totalIngresos > 0) entries.add(new PieEntry(totalIngresos, "Ingresos"));
-                titulo = "Ingresos";
-                break;
+        // Crear los entries de la gráfica
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        for (String cat : categorias) {
+            float monto = sumaPorCategoria.get(cat);
+            if (monto > 0f) {
+                entries.add(new PieEntry(monto, cat));
+            }
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, titulo);
-        dataSet.setColors(new int[]{Color.RED, Color.GREEN});
+        // Configurar la gráfica
+        PieDataSet dataSet = new PieDataSet(entries, "Gastos");
+        dataSet.setColors(new int[]{Color.BLUE, Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW, Color.CYAN});
         dataSet.setValueTextColor(Color.BLACK);
         dataSet.setValueTextSize(12f);
 
         PieData data = new PieData(dataSet);
         pieChart.setData(data);
         pieChart.setUsePercentValues(true);
-        pieChart.setCenterText(titulo);
+        pieChart.setCenterText("Gastos");
         pieChart.setCenterTextSize(18f);
         pieChart.getDescription().setEnabled(false);
-        pieChart.invalidate();
+        pieChart.invalidate(); // refrescar
     }
+
+    public void graficarIngresos(List<Movimiento> lista) {
+        PieChart pieChart = graficasBinding.graficaPastel;
+
+        // Mapa para acumular montos por categoría
+        Map<String, Float> sumaPorCategoria = new HashMap<>();
+
+        // Inicializar categorías conocidas
+        String[] categorias = {"Beca", "Regalo", "Prestamo", "Negocio", "Otros"};
+        for (String cat : categorias) {
+            sumaPorCategoria.put(cat, 0f);
+        }
+
+        // Recorrer la lista de movimientos
+        for (Movimiento mov : lista) {
+            Categoria cat = mov.getIdCategoria();
+
+            // Validar que sea gasto (idTipoCategoria == 1)
+            if (cat != null && cat.getIdTipoCategoria() != null && cat.getIdTipoCategoria().getIdTipoCategoria() == 2) {
+                String nombreCategoria = cat.getCategoria();
+
+                // Si la categoría está en las conocidas, se suma, si no, va a "Otros"
+                if (sumaPorCategoria.containsKey(nombreCategoria)) {
+                    float montoActual = sumaPorCategoria.get(nombreCategoria);
+                    sumaPorCategoria.put(nombreCategoria, montoActual + (float) mov.getMonto());
+                } else {
+                    float montoActual = sumaPorCategoria.get("Otros");
+                    sumaPorCategoria.put("Otros", montoActual + (float) mov.getMonto());
+                }
+            }
+        }
+
+        // Crear los entries de la gráfica
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        for (String cat : categorias) {
+            float monto = sumaPorCategoria.get(cat);
+            if (monto > 0f) {
+                entries.add(new PieEntry(monto, cat));
+            }
+        }
+
+        // Configurar la gráfica
+        PieDataSet dataSet = new PieDataSet(entries, "Ingresos");
+        dataSet.setColors(new int[]{Color.BLUE, Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW, Color.CYAN});
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextSize(12f);
+
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+        pieChart.setUsePercentValues(true);
+        pieChart.setCenterText("Ingresos");
+        pieChart.setCenterTextSize(18f);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.invalidate(); // refrescar
+    }
+
+    public void graficarTodo(List<Movimiento> lista) {
+        PieChart pieChart = graficasBinding.graficaPastel;
+
+        float totalGastos = 0f;
+        float totalIngresos = 0f;
+
+        for (Movimiento mov : lista) {
+            Categoria cat = mov.getIdCategoria();
+            if (cat != null && cat.getIdTipoCategoria() != null) {
+                int tipo = cat.getIdTipoCategoria().getIdTipoCategoria();
+                if (tipo == 1) {
+                    totalGastos += mov.getMonto();
+                } else if (tipo == 2) {
+                    totalIngresos += mov.getMonto();
+                }
+            }
+        }
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        if (totalGastos > 0f) {
+            entries.add(new PieEntry(totalGastos, "Gastos"));
+        }
+        if (totalIngresos > 0f) {
+            entries.add(new PieEntry(totalIngresos, "Ingresos"));
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Resumen financiero");
+        dataSet.setColors(new int[]{Color.RED, Color.GREEN}); // Rojo para gastos, verde para ingresos
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setValueTextSize(14f);
+
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+        pieChart.setUsePercentValues(true);
+        pieChart.setCenterText("Total");
+        pieChart.setCenterTextSize(18f);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.invalidate(); // refrescar gráfico
+    }
+
 
 }

@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
         List<Movimiento> movimientos = iMovimientoRepository.obtenerTodosLosMovimientos();
         Log.e("Movimientos", movimientos.toString());
+
+        this.databaseHelper = new DatabaseHelper(this);
+        this.iMovimientoRepository = new MovimientoRepository(databaseHelper);
+
+        Movimiento movimiento = new Movimiento();
+        Categoria categoria = new Categoria();
     }
 
     @Override
