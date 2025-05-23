@@ -1,11 +1,19 @@
 package com.fin.xpenses;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ListView;
 
+import com.fin.xpenses.data.DatabaseHelper;
+import com.fin.xpenses.model.Categoria;
+import com.fin.xpenses.model.Movimiento;
+import com.fin.xpenses.repository.IMovimientoRepository;
+import com.fin.xpenses.repository.MovimientoRepository;
 import com.fin.xpenses.testLibrary.LombookTestAnnotation;
 import com.fin.xpenses.testLibrary.TestLoombokFuntions;
+import com.fin.xpenses.ui.home.HomeAdaptador;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -18,11 +26,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fin.xpenses.databinding.ActivityMainBinding;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private LombookTestAnnotation test;
+    private DatabaseHelper databaseHelper;
+    private IMovimientoRepository iMovimientoRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
         TestLoombokFuntions test = new TestLoombokFuntions();
         test.testLombok();
         /*----------------------------------------------*/
+
+        this.databaseHelper = new DatabaseHelper(this);
+        this.iMovimientoRepository = new MovimientoRepository(databaseHelper);
+
+        List<Movimiento> movimientos = iMovimientoRepository.obtenerTodosLosMovimientos();
+        Log.e("Movimientos", movimientos.toString());
     }
 
     @Override

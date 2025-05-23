@@ -109,7 +109,7 @@
         android:layout_marginTop="80dp"
         android:text="Aceptar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.249"
+        app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spConcepto" />
 </androidx.constraintlayout.widget.ConstraintLayout>
