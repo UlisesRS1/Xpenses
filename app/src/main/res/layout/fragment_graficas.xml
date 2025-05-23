@@ -11,6 +11,7 @@
         android:layout_width="414dp"
         android:layout_height="56dp"
         android:background="?attr/colorPrimary"
+        android:backgroundTint="#005F6B"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,19 +23,19 @@
         android:layout_width="414dp"
         android:layout_height="56dp"
         android:background="?attr/colorPrimary"
+        android:backgroundTint="#005F6B"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnGraficaIngresoGasto"
         android:layout_width="124dp"
         android:layout_height="57dp"
+        android:backgroundTint="#008C9F"
         android:text="Ingreso/Gasto"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4" />
@@ -43,6 +44,7 @@
         android:id="@+id/btnGraficaGasto"
         android:layout_width="147dp"
         android:layout_height="57dp"
+        android:backgroundTint="#008C9F"
         android:text="Gastos"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/btnGraficaIngresoGasto"
@@ -52,6 +54,8 @@
         android:id="@+id/btnGraficaIngresos"
         android:layout_width="124dp"
         android:layout_height="57dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="#008C9F"
         android:text="Ingresos"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline3" />
@@ -61,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="129dp" />
+        app:layout_constraintGuide_begin="131dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
