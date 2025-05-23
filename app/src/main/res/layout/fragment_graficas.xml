@@ -84,8 +84,17 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="500dp" />
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/graficaPastel"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/btnGraficaGasto"
+        tools:layout_editor_absoluteX="16dp" />
+
     <ListView
-        android:id="@+id/lvInicio"
+        android:id="@+id/lvInicioF"
         android:layout_width="410dp"
         android:layout_height="171dp"
         app:layout_constraintBottom_toTopOf="@+id/materialToolbar3"

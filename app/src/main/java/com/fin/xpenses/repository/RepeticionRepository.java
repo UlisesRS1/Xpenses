@@ -91,6 +91,36 @@ public class RepeticionRepository implements IRepeticionRepository{
 
     @Override
     public Repeticion obtenerRepeticion(int idRepeticion) {
+        SQLiteDatabase db;
+        Cursor cursor;
+        String sql;
+        Repeticion repeticion;
+
+        try {
+            db = this.databaseHelper.getReadableDatabase();
+            sql = "SELECT * FROM " + RepeticionContract.RepeticionesEntry.TABLE_NAME + " WHERE " + RepeticionContract.RepeticionesEntry.ID_REPETICION + " = ?";
+            cursor = db.rawQuery(sql, new String[]{String.valueOf(idRepeticion)});
+
+            if (cursor.moveToFirst()) {
+                repeticion = new Repeticion();
+                Categoria categoria = new Categoria();
+                repeticion.setIdRepeticion(cursor.getInt(cursor.getColumnIndexOrThrow(RepeticionContract.RepeticionesEntry.ID_REPETICION)));
+                repeticion.setMonto(cursor.getDouble(cursor.getColumnIndexOrThrow(RepeticionContract.RepeticionesEntry.MONTO)));
+                repeticion.setFechaInicia(cursor.getString(cursor.getColumnIndexOrThrow(RepeticionContract.RepeticionesEntry.FECHA_INICIO)));
+                repeticion.setFechaTermina(cursor.getString(cursor.getColumnIndexOrThrow(RepeticionContract.RepeticionesEntry.FECHA_TERMINO)));
+                repeticion.setFrecuencia(cursor.getInt(cursor.getColumnIndexOrThrow(RepeticionContract.RepeticionesEntry.FRECUENCIA)));
+                repeticion.setDiasEspecificos(cursor.getString(cursor.getColumnIndexOrThrow(RepeticionContract.RepeticionesEntry.DIAS_ESPECIFICOS)));
+                categoria.setIdCategoria(cursor.getInt(cursor.getColumnIndexOrThrow(RepeticionContract.RepeticionesEntry.ID_CATEGORIA)));
+                repeticion.setIdCategoria(categoria);
+
+                cursor.close();
+                db.close();
+
+                return repeticion;
+            }
+        } catch (Exception e){
+            Log.e("Error", e.getMessage());
+        }
 
         return null;
     }

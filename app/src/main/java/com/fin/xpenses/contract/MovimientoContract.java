@@ -14,5 +14,6 @@ public class MovimientoContract {
         public static final String ID_CATEGORIAS = "id_categorias";
         public static final String ES_FUTURO = "es_futuro";
         public static final String FECHA_REGISTRO = "fecha_registro";
+        public static final String DESCRIPCION = "descripcion";
     }
 }
