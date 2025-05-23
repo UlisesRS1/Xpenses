@@ -11,11 +11,12 @@
         android:layout_width="0dp"
         android:layout_height="90dp"
         android:background="?attr/colorPrimary"
+        android:backgroundTint="#005f6b"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -36,6 +37,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="1000000"
+        android:textColor="#000000"
+        android:textColorLink="#000000"
         android:textSize="35sp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +49,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Saldo actual"
+        android:textColor="#00dffc"
+        android:textColorLink="#000000"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +66,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSaldo"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="1.0" />
+
 
     <Button
         android:id="@+id/btnGasto"
@@ -68,7 +75,10 @@
         android:layout_height="49dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/botones"
         android:text="-Gasto"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/materialToolbar" />
 
@@ -78,7 +88,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/botones"
         android:text="+Ingreso"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/materialToolbar" />
 
