@@ -32,6 +32,8 @@ public class RecordatorioRepository implements IRecordatorioRepository{
             values.put(RecordatorioContract.RecordatorioEntry.MENSAJE, recordatorio.getMensaje());
             values.put(RecordatorioContract.RecordatorioEntry.FECHA_ALARMA, recordatorio.getFechaAlarma());
             long insert = db.insert(RecordatorioContract.RecordatorioEntry.TABLE_NAME, null, values);
+
+            db.close();
             return insert != -1;
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -51,8 +53,9 @@ public class RecordatorioRepository implements IRecordatorioRepository{
             String[] selectionArgs = { String.valueOf(idRecordatorio) };
 
             int deleteRows = db.delete(RecordatorioContract.RecordatorioEntry.TABLE_NAME, selection, selectionArgs);
-            return deleteRows != -1;
+            db.close();
 
+            return deleteRows != -1;
         } catch (Exception e){
             Log.e("Error", e.getMessage());
         }
@@ -75,6 +78,7 @@ public class RecordatorioRepository implements IRecordatorioRepository{
                     values,
                     RecordatorioContract.RecordatorioEntry.ID_RECORDATORIO +
                             " = ?", new String[]{String.valueOf(idRecordatorio)});
+            db.close();
             return update != -1;
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -144,7 +148,10 @@ public class RecordatorioRepository implements IRecordatorioRepository{
                     recordatorios.add(recordatorio);
                 } while (cursor.moveToNext());
             }
+            cursor.close();
+            db.close();
 
+            return recordatorios;
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
         }

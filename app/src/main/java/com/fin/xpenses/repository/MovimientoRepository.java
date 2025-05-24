@@ -5,11 +5,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.fin.xpenses.contract.CategoriaContract;
 import com.fin.xpenses.contract.MovimientoContract;
 import com.fin.xpenses.contract.RepeticionContract;
 import com.fin.xpenses.data.DatabaseHelper;
 import com.fin.xpenses.model.Categoria;
 import com.fin.xpenses.model.Movimiento;
+import com.fin.xpenses.model.TipoCategoria;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,10 +34,13 @@ public class MovimientoRepository implements IMovimientoRepository{
             values = new ContentValues();
             values.put(MovimientoContract.MovimientoEntry.MONTO, movimiento.getMonto());
             values.put(MovimientoContract.MovimientoEntry.FECHA, movimiento.getFecha());
-            values.put(MovimientoContract.MovimientoEntry.ID_CATEGORIAS, String.valueOf(movimiento.getIdCategoria()));
+            values.put(MovimientoContract.MovimientoEntry.ID_CATEGORIAS, movimiento.getIdCategoria().getIdCategoria());
             values.put(MovimientoContract.MovimientoEntry.ES_FUTURO, movimiento.isEsFuturo());
+            values.put(MovimientoContract.MovimientoEntry.DESCRIPCION, movimiento.getDescripcion());
             values.put(MovimientoContract.MovimientoEntry.FECHA_REGISTRO, movimiento.getFechaRegistro());
             long insert = db.insert(MovimientoContract.MovimientoEntry.TABLE_NAME, null, values);
+
+            db.close();
             return insert != -1;
         } catch (Exception e){
             Log.e("Error", e.getMessage());
@@ -55,6 +60,8 @@ public class MovimientoRepository implements IMovimientoRepository{
             String[] selectionArgs = { String.valueOf(idMovimiento) };
 
             int deleteRows = db.delete(MovimientoContract.MovimientoEntry.TABLE_NAME, selection, selectionArgs);
+            db.close();
+
             return deleteRows != -1;
 
         } catch (Exception e){
@@ -81,6 +88,8 @@ public class MovimientoRepository implements IMovimientoRepository{
                     values,
                     MovimientoContract.MovimientoEntry.ID_MOVIMIENTO +
                             " = ?", new String[]{String.valueOf(idMovimiento)});
+
+            db.close();
             return update != -1;
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -107,8 +116,11 @@ public class MovimientoRepository implements IMovimientoRepository{
                 movimiento.setIdMovimiento(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_MOVIMIENTO)));
                 movimiento.setMonto(cursor.getDouble(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.MONTO)));
                 movimiento.setFecha(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA)));
+                movimiento.setDescripcion(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.DESCRIPCION)));
                 movimiento.setEsFuturo(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ES_FUTURO)) == 1);
                 movimiento.setFechaRegistro(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA_REGISTRO)));
+
+
                 categoria.setIdCategoria(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_CATEGORIAS)));
                 movimiento.setIdCategoria(categoria);
 
@@ -125,36 +137,59 @@ public class MovimientoRepository implements IMovimientoRepository{
     }
 
     @Override
+    public boolean eliminarTodosLosMovimietos(){
+        SQLiteDatabase db;
+        String sql;
+        try {
+            db = this.databaseHelper.getWritableDatabase();
+            sql = "DELETE FROM " + MovimientoContract.MovimientoEntry.TABLE_NAME;
+            db.execSQL(sql);
+
+            db.close();
+            return true;
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
     public List<Movimiento> obtenerTodosLosMovimientos() {
         SQLiteDatabase db;
         Cursor cursor;
         String sql;
         List<Movimiento> movimientos;
+        ICategoriaRepository categoriaRepository;
 
         try {
             db = this.databaseHelper.getReadableDatabase();
             sql = "SELECT * FROM " + MovimientoContract.MovimientoEntry.TABLE_NAME;
             cursor = db.rawQuery(sql, null);
             movimientos = new ArrayList<>();
+            categoriaRepository = new CategoriaRepository(databaseHelper);
 
             if (cursor.moveToFirst()) {
                 do {
                     Movimiento movimiento = new Movimiento();
-                    Categoria categoria = new Categoria();
+                    Categoria categoria;
+
                     movimiento.setIdMovimiento(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_MOVIMIENTO)));
                     movimiento.setMonto(cursor.getDouble(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.MONTO)));
                     movimiento.setFecha(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA)));
                     movimiento.setEsFuturo(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ES_FUTURO)) == 1);
                     movimiento.setDescripcion(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.DESCRIPCION)));
                     movimiento.setFechaRegistro(cursor.getString(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.FECHA_REGISTRO)));
-                    categoria.setIdCategoria(cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_CATEGORIAS)));
+
+                    int categoriaId = cursor.getInt(cursor.getColumnIndexOrThrow(MovimientoContract.MovimientoEntry.ID_CATEGORIAS));
+                    categoria = categoriaRepository.obtenerCategoria(categoriaId);
                     movimiento.setIdCategoria(categoria);
 
-                    Log.e("Movimiento", movimiento.toString());
-                    boolean add = movimientos.add(movimiento);
-                    Log.e("Add", String.valueOf(add));
+                    movimientos.add(movimiento);
                 } while (cursor.moveToNext());
             }
+
+            cursor.close();
+            db.close();
 
             return movimientos;
         } catch (Exception e) {
