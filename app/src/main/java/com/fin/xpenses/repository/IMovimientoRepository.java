@@ -10,4 +10,5 @@ public interface IMovimientoRepository {
     boolean actualizarMovimiento(int idMovimiento, Movimiento movimiento);
     Movimiento obtenerMovimiento(int idMovimiento);
     List<Movimiento> obtenerTodosLosMovimientos();
+    boolean eliminarTodosLosMovimietos();
 }

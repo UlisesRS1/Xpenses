@@ -35,6 +35,8 @@ public class RepeticionRepository implements IRepeticionRepository{
             values.put(RepeticionContract.RepeticionesEntry.FECHA_TERMINO, repeticion.getFechaTermina());
             values.put(RepeticionContract.RepeticionesEntry.DIAS_ESPECIFICOS, repeticion.getDiasEspecificos());
             long insert = db.insert(RepeticionContract.RepeticionesEntry.TABLE_NAME, null, values);
+
+            db.close();
             return insert != -1;
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -54,8 +56,9 @@ public class RepeticionRepository implements IRepeticionRepository{
             String[] selectionArgs = { String.valueOf(idRepeticion) };
 
             int deleteRows = db.delete(RepeticionContract.RepeticionesEntry.TABLE_NAME, selection, selectionArgs);
-            return deleteRows != -1;
 
+            db.close();
+            return deleteRows != -1;
         } catch (Exception e){
             Log.e("Error", e.getMessage());
         }
@@ -81,6 +84,7 @@ public class RepeticionRepository implements IRepeticionRepository{
                     values,
                     RepeticionContract.RepeticionesEntry.ID_REPETICION +
                             " = ?", new String[]{String.valueOf(idRepeticion)});
+            db.close();
             return update != -1;
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -156,6 +160,8 @@ public class RepeticionRepository implements IRepeticionRepository{
                     repeticion.setIdCategoria(categoria);
                 } while (cursor.moveToNext());
             }
+            db.close();
+            cursor.close();
 
             return repeticiones;
         } catch (Exception e) {
