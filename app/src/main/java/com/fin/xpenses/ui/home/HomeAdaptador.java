@@ -1,6 +1,7 @@
 package com.fin.xpenses.ui.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,13 @@ public class HomeAdaptador extends BaseAdapter {
 
         viewHolder.txtDescripcion.setText(movimiento.getDescripcion());
         viewHolder.txtCategoria.setText(movimiento.getIdCategoria().getCategoria());
-        viewHolder.txtCifra.setText(String.valueOf(movimiento.getMonto()));
+        if (movimiento.getIdCategoria().getIdTipoCategoria().getIdTipoCategoria() == 1) {
+            viewHolder.txtCifra.setText("- " + String.valueOf(movimiento.getMonto()));
+            viewHolder.txtCifra.setTextColor(Color.RED);
+        } else {
+            viewHolder.txtCifra.setText("+ " + String.valueOf(movimiento.getMonto()));
+            viewHolder.txtCifra.setTextColor(Color.GREEN);
+        }
 
         return convertView;
     }
