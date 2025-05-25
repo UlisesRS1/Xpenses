@@ -76,7 +76,7 @@
 
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="71dp"
+        android:layout_width="95dp"
         android:layout_height="37dp"
         android:layout_marginTop="108dp"
         android:text="Ingreso:"
