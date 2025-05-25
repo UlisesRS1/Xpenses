@@ -155,4 +155,40 @@ public class CategoriaRepository implements ICategoriaRepository{
 
         return Collections.emptyList();
     }
+
+    @Override
+    public Categoria obtenerCategoriaPorNombre(String nombreCategoria) {
+        SQLiteDatabase db;
+        Cursor cursor;
+        String sql;
+        Categoria categoria;
+        ITipoCategoria tipoCategoriaRepository;
+
+        try {
+            db = this.databaseHelper.getReadableDatabase();
+            sql = "SELECT * FROM " + CategoriaContract.CategoriasEntry.TABLE_NAME + " WHERE " + CategoriaContract.CategoriasEntry.CATEGORIA + " = ?";
+
+            cursor = db.rawQuery(sql, new String[]{nombreCategoria});
+            tipoCategoriaRepository = new TipoCategoriaRepository(databaseHelper);
+
+            if (cursor.moveToFirst()) {
+                categoria = new Categoria();
+                categoria.setIdCategoria(cursor.getInt(cursor.getColumnIndexOrThrow(CategoriaContract.CategoriasEntry.ID_CATEGORIAS)));
+                categoria.setCategoria(cursor.getString(cursor.getColumnIndexOrThrow(CategoriaContract.CategoriasEntry.CATEGORIA)));
+
+                TipoCategoria tipoCategoria = tipoCategoriaRepository.obtenerTipoCategoria
+                        (cursor.getInt(cursor.getColumnIndexOrThrow(CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA)));
+                categoria.setIdTipoCategoria(tipoCategoria);
+
+                cursor.close();
+                db.close();
+
+                return categoria;
+                }
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+
+        return null;
+    }
 }
