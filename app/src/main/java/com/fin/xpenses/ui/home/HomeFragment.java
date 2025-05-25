@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.fin.xpenses.ActivyGasto;
+import com.fin.xpenses.Ingreso;
 import com.fin.xpenses.data.DatabaseHelper;
 import com.fin.xpenses.databinding.FragmentHomeBinding;
 import com.fin.xpenses.model.Movimiento;
@@ -52,7 +53,12 @@ public class HomeFragment extends Fragment {
 
     private void setListeners() {
         this.binding.btnIngreso.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Ingreso", Toast.LENGTH_SHORT).show();
+            try {
+                Intent intent = new Intent(requireContext(), Ingreso.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+            }
         });
 
         this.binding.btnGasto.setOnClickListener(v -> {
