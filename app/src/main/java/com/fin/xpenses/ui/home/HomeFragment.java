@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         run();
-
         return root;
     }
 
@@ -49,6 +48,21 @@ public class HomeFragment extends Fragment {
         init();
         showDataInList();
         setListeners();
+        setMontoActual();
+    }
+
+    private void setMontoActual() {
+        double montoActual = 0;
+
+        for (Movimiento movimiento : this.movimientos) {
+            if (movimiento.getIdCategoria().getIdTipoCategoria().getIdTipoCategoria() == 1) {
+                montoActual -= movimiento.getMonto();
+                continue;
+            }
+            montoActual += movimiento.getMonto();
+        }
+
+        this.binding.txtSaldo.setText(String.valueOf(montoActual));
     }
 
     private void setListeners() {
