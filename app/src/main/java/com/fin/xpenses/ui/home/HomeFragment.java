@@ -1,19 +1,18 @@
 package com.fin.xpenses.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.fin.xpenses.R;
+import com.fin.xpenses.ActivyGasto;
 import com.fin.xpenses.data.DatabaseHelper;
 import com.fin.xpenses.databinding.FragmentHomeBinding;
 import com.fin.xpenses.model.Movimiento;
@@ -48,7 +47,24 @@ public class HomeFragment extends Fragment {
     private void run() {
         init();
         showDataInList();
+        setListeners();
     }
+
+    private void setListeners() {
+        this.binding.btnIngreso.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Ingreso", Toast.LENGTH_SHORT).show();
+        });
+
+        this.binding.btnGasto.setOnClickListener(v -> {
+            try {
+                Intent intent = new Intent(requireContext(), ActivyGasto.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+            }
+        });
+    }
+
     private void init() {
         this.databaseHelper = new DatabaseHelper(requireContext());
         this.iMovimientoRepository = new MovimientoRepository(this.databaseHelper);

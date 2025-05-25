@@ -18,6 +18,8 @@ import com.fin.xpenses.data.DatabaseHelper;
 import com.fin.xpenses.databinding.FragmentGraficasBinding;
 import com.fin.xpenses.model.Categoria;
 import com.fin.xpenses.model.Movimiento;
+import com.fin.xpenses.repository.CategoriaRepository;
+import com.fin.xpenses.repository.ICategoriaRepository;
 import com.fin.xpenses.repository.IMovimientoRepository;
 import com.fin.xpenses.repository.MovimientoRepository;
 import com.github.mikephil.charting.charts.PieChart;
@@ -47,8 +49,6 @@ public class graficasFragment extends Fragment {
         graficasBinding = FragmentGraficasBinding.inflate(inflater, container, false);
 
         graficasBinding.btnGraficaIngresoGasto.setOnClickListener(v -> {
-
-
             graficarTodo(lista);
         });
 
@@ -58,13 +58,10 @@ public class graficasFragment extends Fragment {
             /*graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
                     requireContext(), android.R.layout.simple_list_item_1, lista
             ));*/
-
             graficarGastos(lista);
         });
 
         graficasBinding.btnGraficaIngresos.setOnClickListener(v -> {
-
-
             graficarIngresos(lista);
         });
 
@@ -76,6 +73,9 @@ public class graficasFragment extends Fragment {
 
         // Mapa para acumular montos por categoría
         Map<String, Float> sumaPorCategoria = new HashMap<>();
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this.getContext());
+        ICategoriaRepository categoriaRepository = new CategoriaRepository(databaseHelper);
 
         // Inicializar categorías conocidas
         String[] categorias = {"Alimentacion", "Servicios", "Entretenimiento", "Salud y bienestar", "Suscripciones", "Otros"};

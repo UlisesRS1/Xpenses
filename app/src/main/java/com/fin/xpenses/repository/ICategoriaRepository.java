@@ -10,4 +10,5 @@ public interface ICategoriaRepository {
     boolean actualizarCategoria(int idCategoria, Categoria categoria);
     Categoria obtenerCategoria(int idCategoria);
     List<Categoria> obtenerTodasLasCategorias();
+    Categoria obtenerCategoriaPorNombre(String nombreCategoria);
 }
