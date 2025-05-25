@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Xpenses"
         tools:targetApi="31">
         <activity
-            android:name=".ingreso"
+            android:name=".Ingreso"
             android:exported="false" />
         <activity
             android:name=".Inicio"
