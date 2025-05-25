@@ -45,12 +45,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Spinner
+        android:id="@+id/spConcepto"
+        android:layout_width="206dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="121dp"
+        android:layout_height="54dp"
+        android:background="@drawable/botones"
+        android:text="Cancelar"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.751"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="569dp" />
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="71dp"
         android:layout_height="37dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="212dp"
         android:text="Gasto:"
+        android:textColor="#00B4CC"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="150dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="100dp"
+        android:text="Descripcion:"
         android:textColor="#00B4CC"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -62,8 +98,8 @@
         android:id="@+id/textView7"
         android:layout_width="114dp"
         android:layout_height="38dp"
-        android:layout_marginTop="228dp"
-        android:text="Concepto:"
+        android:layout_marginTop="332dp"
+        android:text="Categoria:"
         android:textColor="#00B4CC"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -76,7 +112,7 @@
         android:id="@+id/edtGasto"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="00.00"
         android:inputType="number|numberDecimal"
@@ -86,43 +122,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <Spinner
-        android:id="@+id/spConcepto"
-        android:layout_width="206dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="121dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/botones"
-        android:text="Cancelar"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.734"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spConcepto" />
-
     <Button
         android:id="@+id/button2"
         android:layout_width="121dp"
         android:layout_height="54dp"
-        android:layout_marginTop="80dp"
         android:background="@drawable/botones"
-        app:backgroundTint="@null"
         android:text="Aceptar"
 
-        app:layout_constraintTop_toBottomOf="@+id/spConcepto"
+        app:backgroundTint="@null"
 
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25" />
+        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="569dp" />
+
+    <EditText
+        android:id="@+id/edtDescripcionGasto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="descripcion"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
