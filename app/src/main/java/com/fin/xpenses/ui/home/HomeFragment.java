@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment {
         setTotal();
     }
 
+
     private void execFirstScreen() {
         SharedPreferences preferences = requireContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isFirstRun = preferences.getBoolean(FIRST_RUN_KEY, true);
