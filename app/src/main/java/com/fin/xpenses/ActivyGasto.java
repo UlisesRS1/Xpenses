@@ -96,6 +96,7 @@ public class ActivyGasto extends AppCompatActivity {
 
                 double doubleMonto = Double.parseDouble(String.valueOf(this.binding.edtGasto.getText()));
                 String textCategoria = this.binding.spConcepto.getSelectedItem().toString();
+                String textDescripcion = this.binding.edtDescripcionGasto.getText().toString();
 
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
@@ -112,11 +113,11 @@ public class ActivyGasto extends AppCompatActivity {
                 movimiento.setDescripcion(textCategoria);
                 movimiento.setEsFuturo(false); // -- Falta agregar apartados --
                 movimiento.setFechaRegistro(fecha); // fecha correcta
+                movimiento.setDescripcion(textDescripcion);
 
                 // movimiento.setEsFuturo(); // -- Falta agregar apartados --
 
-                boolean add = this.iMovimientoRepository.agregarMovimiento(movimiento);
-                Log.e("Add", String.valueOf(add));
+                this.iMovimientoRepository.agregarMovimiento(movimiento);
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 this.finish();
