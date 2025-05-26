@@ -98,6 +98,7 @@ public class Ingreso extends AppCompatActivity {
 
                 double doubleMonto = Double.parseDouble(String.valueOf(this.binding.edtIngreso.getText()));
                 String textCategoria = this.binding.spConceptoIng.getSelectedItem().toString();
+                String textDescripcion = this.binding.edtDescripcionIngreso.getText().toString();
 
                 Calendar calendar = Calendar.getInstance();
                 int year = calendar.get(Calendar.YEAR);
@@ -114,6 +115,7 @@ public class Ingreso extends AppCompatActivity {
                 movimiento.setDescripcion(textCategoria);
                 movimiento.setEsFuturo(false); // -- Falta agregar apartados --
                 movimiento.setFechaRegistro(fecha); // fecha correcta
+                movimiento.setDescripcion(textDescripcion);
 
                 // movimiento.setEsFuturo(); // -- Falta agregar apartados --
 
