@@ -55,9 +55,8 @@ public class graficasFragment extends Fragment {
 
         graficasBinding.btnGraficaGasto.setOnClickListener(v -> {
 
-            /*graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
-                    requireContext(), android.R.layout.simple_list_item_1, lista
-            ));*/
+
+
             graficarGastos(lista);
         });
 
@@ -124,6 +123,19 @@ public class graficasFragment extends Fragment {
         pieChart.setCenterTextSize(18f);
         pieChart.getDescription().setEnabled(false);
         pieChart.invalidate(); // refrescar
+
+        // NUEVO: Mostrar solo gastos en el ListView
+        List<Movimiento> gastos = new ArrayList<>();
+        for (Movimiento mov : lista) {
+            Categoria cat = mov.getIdCategoria();
+            if (cat != null && cat.getIdTipoCategoria() != null && cat.getIdTipoCategoria().getIdTipoCategoria() == 1) {
+                gastos.add(mov);
+            }
+        }
+
+        graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
+                requireContext(), android.R.layout.simple_list_item_1, gastos
+        ));
     }
 
     public void graficarIngresos(List<Movimiento> lista) {
@@ -142,7 +154,7 @@ public class graficasFragment extends Fragment {
         for (Movimiento mov : lista) {
             Categoria cat = mov.getIdCategoria();
 
-            // Validar que sea gasto (idTipoCategoria == 1)
+            // Validar que sea ingreso (idTipoCategoria == 2)
             if (cat != null && cat.getIdTipoCategoria() != null && cat.getIdTipoCategoria().getIdTipoCategoria() == 2) {
                 String nombreCategoria = cat.getCategoria();
 
@@ -179,6 +191,19 @@ public class graficasFragment extends Fragment {
         pieChart.setCenterTextSize(18f);
         pieChart.getDescription().setEnabled(false);
         pieChart.invalidate(); // refrescar
+
+        // Mostrar solo ingresos en el ListView
+        List<Movimiento> ingresos = new ArrayList<>();
+        for (Movimiento mov : lista) {
+            Categoria cat = mov.getIdCategoria();
+            if (cat != null && cat.getIdTipoCategoria() != null && cat.getIdTipoCategoria().getIdTipoCategoria() == 2) {
+                ingresos.add(mov);
+            }
+        }
+
+        graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
+                requireContext(), android.R.layout.simple_list_item_1, ingresos
+        ));
     }
 
     public void graficarTodo(List<Movimiento> lista) {
@@ -219,6 +244,10 @@ public class graficasFragment extends Fragment {
         pieChart.setCenterTextSize(18f);
         pieChart.getDescription().setEnabled(false);
         pieChart.invalidate(); // refrescar gráfico
+
+        graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
+                requireContext(), android.R.layout.simple_list_item_1, lista
+        ));
     }
 
 
