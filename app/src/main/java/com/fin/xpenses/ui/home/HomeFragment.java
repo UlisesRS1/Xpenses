@@ -49,7 +49,6 @@ public class HomeFragment extends Fragment {
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         run();
-
         return root;
     }
 
@@ -58,46 +57,21 @@ public class HomeFragment extends Fragment {
         init();
         showDataInList();
         setListeners();
-        setTotal();
+        setMontoActual();
     }
 
-    private void execFirstScreen() {
-        SharedPreferences preferences = requireContext().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean isFirstRun = preferences.getBoolean(FIRST_RUN_KEY, true);
+    private void setMontoActual() {
+        double montoActual = 0;
 
-        if (isFirstRun) {
-            // Aquí haces lo que necesites en la primera instalación
-            // Por ejemplo: mostrar tutorial o pantalla de bienvenida
-            Log.e("FirstRun", "Ejecutando la primera ejecución");
-
-            // Marcar como ya ejecutada una vez
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(FIRST_RUN_KEY, false);
-            editor.apply();
-
-            Intent intent = new Intent(requireContext(), Inicio.class);
-            startActivity(intent);
-        } else {
-            Log.e("FirstRun", "No es la primera ejecución");
-        }
-    }
-
-    public void setTotal() {
-        double total = 0;
         for (Movimiento movimiento : this.movimientos) {
-            if (movimiento.getIdCategoria().getIdTipoCategoria().getIdTipoCategoria() == 1){
-                total -= movimiento.getMonto();
+            if (movimiento.getIdCategoria().getIdTipoCategoria().getIdTipoCategoria() == 1) {
+                montoActual -= movimiento.getMonto();
                 continue;
             }
+            montoActual += movimiento.getMonto();
+        }
 
-            total += movimiento.getMonto();
-        }
-        if (total < 0) {
-            this.binding.txtSaldo.setTextColor(Color.RED);
-        } else {
-            this.binding.txtSaldo.setTextColor(Color.BLACK);
-        }
-        this.binding.txtSaldo.setText(String.valueOf(total));
+        this.binding.txtSaldo.setText(String.valueOf(montoActual));
     }
 
     private void setListeners() {
