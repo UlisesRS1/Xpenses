@@ -54,9 +54,6 @@ public class graficasFragment extends Fragment {
 
 
         graficasBinding.btnGraficaGasto.setOnClickListener(v -> {
-
-
-
             graficarGastos(lista);
         });
 
@@ -125,11 +122,11 @@ public class graficasFragment extends Fragment {
         pieChart.invalidate(); // refrescar
 
         // NUEVO: Mostrar solo gastos en el ListView
-        List<Movimiento> gastos = new ArrayList<>();
+        List<String> gastos = new ArrayList<>();
         for (Movimiento mov : lista) {
             Categoria cat = mov.getIdCategoria();
             if (cat != null && cat.getIdTipoCategoria() != null && cat.getIdTipoCategoria().getIdTipoCategoria() == 1) {
-                gastos.add(mov);
+                gastos.add(mov.getDescripcion() + ": " + mov.getMonto() + "   Fecha: " + mov.getFecha());
             }
         }
 
@@ -193,11 +190,11 @@ public class graficasFragment extends Fragment {
         pieChart.invalidate(); // refrescar
 
         // Mostrar solo ingresos en el ListView
-        List<Movimiento> ingresos = new ArrayList<>();
+        List<String> ingresos = new ArrayList<>();
         for (Movimiento mov : lista) {
             Categoria cat = mov.getIdCategoria();
             if (cat != null && cat.getIdTipoCategoria() != null && cat.getIdTipoCategoria().getIdTipoCategoria() == 2) {
-                ingresos.add(mov);
+                ingresos.add(mov.getDescripcion() + ": " + mov.getMonto() + "   Fecha: " + mov.getFecha());
             }
         }
 
@@ -245,8 +242,14 @@ public class graficasFragment extends Fragment {
         pieChart.getDescription().setEnabled(false);
         pieChart.invalidate(); // refrescar gráfico
 
+        // Mostrar solo ingresos en el ListView
+        List<String> gastosIngresos = new ArrayList<>();
+        for (Movimiento mov : lista) {
+            gastosIngresos.add(mov.getDescripcion() + ": " + mov.getMonto() + "   Fecha: " + mov.getFecha());
+        }
+
         graficasBinding.lvInicioF.setAdapter(new ArrayAdapter<>(
-                requireContext(), android.R.layout.simple_list_item_1, lista
+                requireContext(), android.R.layout.simple_list_item_1, gastosIngresos
         ));
     }
 
