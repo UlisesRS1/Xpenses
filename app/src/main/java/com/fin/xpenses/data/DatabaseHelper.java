@@ -88,8 +88,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String sqlInsertCategoriaNegocio = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Negocio', 2)";
 
 
-        String sqlInserCategoriaOtrosIngresos = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Otros', 1)";
-        String sqlInsertCategriaOtrosGastos = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Otros', 2)";
+        String sqlInserCategoriaOtrosIngresos = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Otros', 2)";
+        String sqlInsertCategriaOtrosGastos = "Insert into " + CategoriaContract.CategoriasEntry.TABLE_NAME + " (" + CategoriaContract.CategoriasEntry.CATEGORIA + ", " + CategoriaContract.CategoriasEntry.ID_TIPO_CATEGORIA + ") values ('Otros', 1)";
 
         db.execSQL(sqlInsertTipoCategoriaGasto);
         db.execSQL(sqlInsertTipoCategoriaIngreso);
