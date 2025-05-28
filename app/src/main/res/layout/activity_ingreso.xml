@@ -7,11 +7,51 @@
     android:layout_height="match_parent"
     tools:context=".Ingreso">
 
+    <Button
+        android:id="@+id/btnCancelarIngreso"
+        android:layout_width="205dp"
+        android:layout_height="88dp"
+        android:background="@drawable/botones"
+        android:text="Cancelar"
+        android:textColor="#AB0606"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/materialToolbar7" />
+
+    <Button
+        android:id="@+id/btnAceptarIngreso"
+        android:layout_width="205dp"
+        android:layout_height="88dp"
+        android:background="@drawable/botones"
+        android:text="Aceptar"
+
+        android:textColor="#82F069"
+
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/materialToolbar7" />
+
+    <Spinner
+        android:id="@+id/spConceptoIng"
+        android:layout_width="206dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
     <TextView
         android:id="@+id/textView19"
         android:layout_width="150dp"
         android:layout_height="37dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="160dp"
         android:text="Descripcion:"
         android:textColor="#00B4CC"
         android:textSize="24sp"
@@ -21,11 +61,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="114dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="408dp"
+        android:text="Categoria:"
+        android:textColor="#00B4CC"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/edtDescripcionIngreso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="descripcion"
         android:inputType="text"
@@ -35,64 +89,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
-    <Button
-        android:id="@+id/btnCancelarIngreso"
-        android:layout_width="121dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/botones"
-        android:text="Cancelar"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.741"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spConceptoIng" />
-
-    <Button
-        android:id="@+id/btnAceptarIngreso"
-        android:layout_width="121dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/botones"
-        android:text="Aceptar"
-
-        app:backgroundTint="@null"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.262"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spConceptoIng" />
-
-    <Spinner
-        android:id="@+id/spConceptoIng"
-        android:layout_width="206dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="95dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="240dp"
-        android:text="Ingreso:"
-        android:textColor="#00B4CC"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/edtIngreso"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="00.00"
         android:inputType="number|numberDecimal"
@@ -103,16 +104,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
-        android:id="@+id/textView17"
-        android:layout_width="114dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="360dp"
-        android:text="Categoria:"
+        android:id="@+id/textView15"
+        android:layout_width="95dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="288dp"
+        android:text="Ingreso:"
         android:textColor="#00B4CC"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
