@@ -11,9 +11,6 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_test"
-            app:destination="@id/fragment_test" />
-        <action
             android:id="@+id/action_nav_home_to_nav_gallery2"
             app:destination="@id/nav_gallery" />
         <action
@@ -32,9 +29,4 @@
         android:name="com.fin.xpenses.ui.acercade.AcercaDeFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_acercade" />
-    <fragment
-        android:id="@+id/fragment_test"
-        android:name="com.fin.xpenses.test"
-        android:label="Test Fragment"
-        tools:layout="@layout/fragment_test"/>
 </navigation>
