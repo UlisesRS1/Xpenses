@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.fragment_test)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -69,17 +69,24 @@ public class MainActivity extends AppCompatActivity {
         test.testLombok();
         /*----------------------------------------------*/
 
-        this.databaseHelper = new DatabaseHelper(this);
-        this.iMovimientoRepository = new MovimientoRepository(databaseHelper);
-
-        List<Movimiento> movimientos = iMovimientoRepository.obtenerTodosLosMovimientos();
-        Log.e("Movimientos", movimientos.toString());
-
-        this.databaseHelper = new DatabaseHelper(this);
+        /*this.databaseHelper = new DatabaseHelper(this);
         this.iMovimientoRepository = new MovimientoRepository(databaseHelper);
 
         Movimiento movimiento = new Movimiento();
-        Categoria categoria = new Categoria();
+        Categoria categoria = new Categoria();*/
+
+        /*- Ingreso -*/
+        /*movimiento.setDescripcion("Pague el internet xd");
+        movimiento.setEsFuturo(true);
+        categoria.setIdCategoria(6);
+        movimiento.setIdCategoria(categoria);
+        movimiento.setFechaRegistro("2023-08-01");
+        movimiento.setFecha("2023-08-01");
+        movimiento.setMonto(1000.0);*/
+        //iMovimientoRepository.agregarMovimiento(movimiento);
+
+        //List<Movimiento> movimientos = iMovimientoRepository.obtenerTodosLosMovimientos();
+        //Log.e("Movimientos", movimientos.toString());
     }
 
     @Override
