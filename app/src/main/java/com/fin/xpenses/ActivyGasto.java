@@ -105,7 +105,10 @@ public class ActivyGasto extends AppCompatActivity {
                 String fecha = day + "/" + month + "/" + year;
 
                 ICategoriaRepository categoriaRepository = new CategoriaRepository(this.databaseHelper);
-                categoria = categoriaRepository.obtenerCategoriaPorNombre(textCategoria);
+                if(!textCategoria.equals("Otros"))
+                    categoria = categoriaRepository.obtenerCategoriaPorNombre(textCategoria);
+                else
+                    categoria = categoriaRepository.obtenerCategoria(11);
 
                 movimiento.setIdCategoria(categoria);
                 movimiento.setMonto(doubleMonto);
